@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":groupAllNonMajor", "group:monorepos"],
+  "dependencyDashboard": true,
+
+  "enabledManagers": ["pnpm", "nvm", "github-actions", "dockerfile"],
+
+  "packageRules": [
+    {
+      "matchManagers": ["nvm"],
+      "groupName": "node-runtime",
+      "schedule": ["on saturday"]
+    },
+    {
+      "matchPackageNames": ["pnpm"],
+      "groupName": "pnpm-cli"
+    },
+    {
+      "matchManagers": ["pnpm"],
+      "groupName": "pnpm-deps",
+      "rangeStrategy": "update-lockfile"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "gh-actions",
+      "automerge": true
+    }
+  ],
+
+  "lockFileMaintenance": { "enabled": true, "schedule": ["before 4am on monday"] },
+  "prHourlyLimit": 5,
+  "prConcurrentLimit": 20,
+  "semanticCommits": "enabled",
+  "rebaseWhen": "conflicted",
+  "timezone": "America/New_York",
+  "schedule": ["after 02:00 and before 06:00 every weekday"]
+}
