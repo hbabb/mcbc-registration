@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 import {
   addressValidation,
@@ -10,11 +10,11 @@ import {
   phoneValidation,
   stateValidation,
   zipValidation,
-} from '@/schemas/validationHelpers';
+} from "@/schemas/validationHelpers";
 
 // Zod schema for validation
 export const registrationSchema = z.object({
-  program: z.enum(['VBS', 'SYO']),
+  program: z.enum(["VBS", "SYO"]),
 
   guardians: z.object({
     firstName: nameValidation,
@@ -35,10 +35,10 @@ export const registrationSchema = z.object({
         lastName: nameValidation,
         dateOfBirth: z
           .string()
-          .min(1, { message: 'Date of birth is required' }),
+          .min(1, { message: "Date of birth is required" }),
         classInFall: z
           .string()
-          .min(1, { message: 'Class in fall is required' }),
+          .min(1, { message: "Class in fall is required" }),
         school: z.string().optional(),
         medicalInformation: z.object({
           foodAllergies: z.string().optional(),
@@ -47,27 +47,27 @@ export const registrationSchema = z.object({
         }),
       }),
     )
-    .min(1, 'At least one child is required'),
+    .min(1, "At least one child is required"),
   emergencyContacts: z
     .array(
       z.object({
         firstName: nameValidation,
         lastName: nameValidation,
         phonePrimary: phoneValidation,
-        relationship: z.string().min(1, 'Relationship is required'),
+        relationship: z.string().min(1, "Relationship is required"),
       }),
     )
-    .min(1, 'At least one emergency contact is required')
-    .max(3, 'Maximum 3 emergency contacts allowed'),
+    .min(1, "At least one emergency contact is required")
+    .max(3, "Maximum 3 emergency contacts allowed"),
   consent: z.object({
     photoRelease: z.boolean(),
-    consentGiven: z.boolean().refine(val => val, {
-      message: 'Consent must be given to proceed with registration',
+    consentGiven: z.boolean().refine((val) => val, {
+      message: "Consent must be given to proceed with registration",
     }),
   }),
 
-  honeypot: z.string().max(0, { message: 'Bot detected' }),
-  honeypot2: z.string().max(0, { message: 'Bot detected' }),
+  honeypot: z.string().max(0, { message: "Bot detected" }),
+  honeypot2: z.string().max(0, { message: "Bot detected" }),
 });
 
 // Export the inferred type for TypeScript

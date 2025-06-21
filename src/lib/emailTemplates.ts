@@ -19,7 +19,7 @@
  * @version 1.0.0
  */
 
-import type { RegistrationFormData } from '@/schemas/formSchema';
+import type { RegistrationFormData } from "@/schemas/formSchema";
 
 /**
  * Church branding configuration for email templates
@@ -27,28 +27,28 @@ import type { RegistrationFormData } from '@/schemas/formSchema';
  */
 const CHURCH_BRANDING = {
   /** Primary church color for headers and buttons */
-  primaryColor: '#1e40af', // Blue
+  primaryColor: "#1e40af", // Blue
 
   /** Secondary color for accents */
-  secondaryColor: '#059669', // Green
+  secondaryColor: "#059669", // Green
 
   /** Church name as it appears in emails */
-  churchName: 'Motlow Creek Baptist Church',
+  churchName: "Motlow Creek Baptist Church",
 
   /** VBS program name */
-  programName: 'Vacation Bible School 2025 - Magnified!',
+  programName: "Vacation Bible School 2025 - Magnified!",
 
   /** Church contact phone number */
-  phoneNumber: '(864) 572-1499',
+  phoneNumber: "(864) 572-1499",
 
   /** Church contact email */
-  contactEmail: 'support@vbs.motlowcreekministries.com',
+  contactEmail: "support@vbs.motlowcreekministries.com",
 
   /** Church physical address */
-  address: '2300 Motlow Creek Road, Campobello, SC 29322',
+  address: "2300 Motlow Creek Road, Campobello, SC 29322",
 
   /** Church website URL */
-  website: 'https://motlowcreekministries.com',
+  website: "https://motlowcreekministries.com",
 } as const;
 
 /**
@@ -68,12 +68,12 @@ export function createRegistrationConfirmationEmail(
 
   // Generate a list of registered children names
   const childrenNames = children
-    .map(child => `${child.firstName} ${child.lastName}`)
-    .join(', ');
+    .map((child) => `${child.firstName} ${child.lastName}`)
+    .join(", ");
 
   // Create plural/singular text based on the number of children
-  const childText = children.length === 1 ? 'child' : 'children';
-  const isAre = children.length === 1 ? 'is' : 'are';
+  const childText = children.length === 1 ? "child" : "children";
+  const isAre = children.length === 1 ? "is" : "are";
 
   return `
 <!DOCTYPE html>

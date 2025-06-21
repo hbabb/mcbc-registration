@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import * as Sentry from '@sentry/nextjs';
-import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import * as Sentry from "@sentry/nextjs";
+import Head from "next/head";
+import { useEffect, useState } from "react";
 
 class SentryExampleFrontendError extends Error {
   constructor(message: string | undefined) {
     super(message);
-    this.name = 'SentryExampleFrontendError';
+    this.name = "SentryExampleFrontendError";
   }
 }
 
@@ -18,7 +18,7 @@ export default function Page() {
   useEffect(() => {
     async function checkConnectivity() {
       const result = await Sentry.diagnoseSdkConnectivity();
-      setIsConnected(result !== 'sentry-unreachable');
+      setIsConnected(result !== "sentry-unreachable");
     }
     checkConnectivity();
   }, []);
@@ -27,10 +27,7 @@ export default function Page() {
     <div>
       <Head>
         <title>sentry-example-page</title>
-        <meta
-          name="description"
-          content="Test Sentry for your Next.js app!"
-        />
+        <meta name="description" content="Test Sentry for your Next.js app!" />
       </Head>
 
       <main>
@@ -49,17 +46,14 @@ export default function Page() {
         <h1>sentry-example-page</h1>
 
         <p className="description">
-          Click the button below, and view the sample error on the
-          Sentry
-          {' '}
+          Click the button below, and view the sample error on the Sentry{" "}
           <a
             target="_blank"
             href="https://hb-consultants-llc.sentry.io/issues/?project=4509379484319744"
           >
             Issues Page
           </a>
-          . For more details about setting up Sentry,
-          {' '}
+          . For more details about setting up Sentry,{" "}
           <a
             target="_blank"
             href="https://docs.sentry.io/platforms/javascript/guides/nextjs/"
@@ -74,17 +68,15 @@ export default function Page() {
           onClick={async () => {
             await Sentry.startSpan(
               {
-                name: 'Example Frontend Span',
-                op: 'test',
+                name: "Example Frontend Span",
+                op: "test",
               },
               async () => {
-                const res = await fetch(
-                  '/api/sentry-example-api',
-                );
+                const res = await fetch("/api/sentry-example-api");
                 if (!res.ok) {
                   setHasSentError(true);
                   throw new SentryExampleFrontendError(
-                    'This error is raised on the frontend of the example page.',
+                    "This error is raised on the frontend of the example page.",
                   );
                 }
               },
@@ -94,31 +86,25 @@ export default function Page() {
           <span>Throw Sample Error</span>
         </button>
 
-        {hasSentError
-          ? (
-              <p className="success">Sample error was sent to Sentry.</p>
-            )
-          : !isConnected
-              ? (
-                  <div className="connectivity-error">
-                    <p>
-                      The Sentry SDK is not able to reach Sentry right now
-                      - this may be due to an adblocker. For more
-                      information, see
-                      {' '}
-                      <a
-                        target="_blank"
-                        href="https://docs.sentry.io/platforms/javascript/guides/nextjs/troubleshooting/#the-sdk-is-not-sending-any-data"
-                      >
-                        the troubleshooting guide
-                      </a>
-                      .
-                    </p>
-                  </div>
-                )
-              : (
-                  <div className="success_placeholder" />
-                )}
+        {hasSentError ? (
+          <p className="success">Sample error was sent to Sentry.</p>
+        ) : !isConnected ? (
+          <div className="connectivity-error">
+            <p>
+              The Sentry SDK is not able to reach Sentry right now - this may be
+              due to an adblocker. For more information, see{" "}
+              <a
+                target="_blank"
+                href="https://docs.sentry.io/platforms/javascript/guides/nextjs/troubleshooting/#the-sdk-is-not-sending-any-data"
+              >
+                the troubleshooting guide
+              </a>
+              .
+            </p>
+          </div>
+        ) : (
+          <div className="success_placeholder" />
+        )}
 
         <div className="flex-spacer" />
 

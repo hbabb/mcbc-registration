@@ -6,7 +6,7 @@
  * Handles required field styling with bold labels and red asterisks
  */
 
-import type { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form';
+import type { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 
 import {
   FormControl,
@@ -14,15 +14,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 type SelectOption = {
   value: string;
@@ -53,7 +53,7 @@ export function FormSelect<T extends FieldValues>({
   name,
   label,
   options,
-  placeholder = 'Select an option',
+  placeholder = "Select an option",
   required = false,
   disabled = false,
   className,
@@ -64,11 +64,9 @@ export function FormSelect<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className={cn(required && 'font-bold')}>
+          <FormLabel className={cn(required && "font-bold")}>
             {label}
-            {required && (
-              <span className="ml-1 text-red-500">*</span>
-            )}
+            {required && <span className="ml-1 text-red-500">*</span>}
           </FormLabel>
           <Select
             onValueChange={field.onChange}
@@ -81,11 +79,8 @@ export function FormSelect<T extends FieldValues>({
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {options.map(options => (
-                <SelectItem
-                  key={options.value}
-                  value={options.value}
-                >
+              {options.map((options) => (
+                <SelectItem key={options.value} value={options.value}>
                   {options.label}
                 </SelectItem>
               ))}

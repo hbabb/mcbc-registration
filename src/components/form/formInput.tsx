@@ -6,7 +6,7 @@
  * Handles required field styling with bold labels and red asterisks
  */
 
-import type { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form';
+import type { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 
 import {
   FormControl,
@@ -14,9 +14,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 type FormInputProps<T extends FieldValues> = {
   // React Hook Form instance
@@ -30,7 +30,7 @@ type FormInputProps<T extends FieldValues> = {
   // Mark the input as required
   required?: boolean;
   // HTML input type
-  type?: 'text' | 'email' | 'tel' | 'password' | 'number' | 'date';
+  type?: "text" | "email" | "tel" | "password" | "number" | "date";
   // Mark the input disabled
   disabled?: boolean;
   // Additional CSS classes
@@ -43,7 +43,7 @@ export function FormInput<T extends FieldValues>({
   label,
   placeholder,
   required = false,
-  type = 'text',
+  type = "text",
   disabled = false,
   className,
 }: FormInputProps<T>) {
@@ -53,11 +53,9 @@ export function FormInput<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className={cn(required && 'font-bold')}>
+          <FormLabel className={cn(required && "font-bold")}>
             {label}
-            {required && (
-              <span className="ml-1 text-red-500">*</span>
-            )}
+            {required && <span className="ml-1 text-red-500">*</span>}
           </FormLabel>
           <FormControl>
             <Input

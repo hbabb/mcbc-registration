@@ -19,8 +19,8 @@
  * @version 1.0.0
  */
 
-import * as Sentry from '@sentry/nextjs';
-import { Resend } from 'resend';
+import * as Sentry from "@sentry/nextjs";
+import { Resend } from "resend";
 
 /**
  * Initialize the Resend client with an API key from the environment
@@ -60,7 +60,7 @@ export async function sendEmail({ to, subject, html }: EmailOptions) {
     const { data, error } = await resend.emails.send({
       // FROM ADDRESS: Update this for each project/organization
       // Domain must be verified in your Resend dashboard
-      from: 'VBS Registration <noreply@vbs.motlowcreekministries.com>',
+      from: "VBS Registration <noreply@vbs.motlowcreekministries.com>",
       to, // Recipient email address
       subject, // Email subject line
       html, // Email body content (HTML format)
@@ -69,10 +69,10 @@ export async function sendEmail({ to, subject, html }: EmailOptions) {
     // Check if Resend returned an error
     if (error) {
       // Capture error in Sentry with context
-      Sentry.captureException(new Error('Resend API error'), {
+      Sentry.captureException(new Error("Resend API error"), {
         tags: {
-          component: 'email-service',
-          email_type: 'registration-confirmation',
+          component: "email-service",
+          email_type: "registration-confirmation",
         },
         extra: {
           resendError: error,
@@ -81,8 +81,8 @@ export async function sendEmail({ to, subject, html }: EmailOptions) {
         },
       });
 
-      console.error('Email sending error:', error);
-      throw new Error('Failed to send email via Resend API');
+      console.error("Email sending error:", error);
+      throw new Error("Failed to send email via Resend API");
     }
 
     // Log successful email sending (optional - for debugging)
@@ -90,24 +90,22 @@ export async function sendEmail({ to, subject, html }: EmailOptions) {
 
     // Return success response with optional data from Resend
     return { success: true, data };
-  }
-  catch (error) {
+  } catch (error) {
     // Capture unexpected errors in Sentry
     Sentry.captureException(error, {
       tags: {
-        component: 'email-service',
-        operation: 'send-email',
+        component: "email-service",
+        operation: "send-email",
       },
       extra: {
         recipientEmail: to,
         subject,
-        errorMessage:
-                    error instanceof Error ? error.message : 'Unknown error',
+        errorMessage: error instanceof Error ? error.message : "Unknown error",
       },
     });
 
     // Log error locally for immediate debugging
-    console.error('Email service error:', error);
+    console.error("Email service error:", error);
 
     // Re-throw error so calling code can handle it appropriately
     throw error;
@@ -120,14 +118,14 @@ export async function sendEmail({ to, subject, html }: EmailOptions) {
  */
 export const EMAIL_CONFIG = {
   /** Default sender name that appears in the recipient's inbox */
-  DEFAULT_SENDER_NAME: 'VBS Registration',
+  DEFAULT_SENDER_NAME: "VBS Registration",
 
   /** Domain used for sending emails - must be verified in Resend */
-  SENDER_DOMAIN: 'vbs.motlowcreekministries.com',
+  SENDER_DOMAIN: "vbs.motlowcreekministries.com",
 
   /** Default from email address */
   DEFAULT_FROM_EMAIL:
-        'VBS Registration <noreply@vbs.motlowcreekministries.com>',
+    "VBS Registration <noreply@vbs.motlowcreekministries.com>",
 
   /** Timeout for email sending operations (in milliseconds) */
   TIMEOUT_MS: 10000,

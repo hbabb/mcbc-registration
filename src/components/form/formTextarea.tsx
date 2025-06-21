@@ -6,7 +6,7 @@
  * Handles required field styling with bold labels and red asterisks
  */
 
-import type { FieldPath, FieldValues, UseFormReturn } from 'react-hook-form';
+import type { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
 
 import {
   FormControl,
@@ -15,9 +15,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 
 type FormTextareaProps<T extends FieldValues> = {
   /** React Hook Form instance */
@@ -48,7 +48,7 @@ export default function FormTextarea<T extends FieldValues>({
   required = false,
   disabled = false,
   description,
-  minHeight = 'min-h-20',
+  minHeight = "min-h-20",
   className,
 }: FormTextareaProps<T>) {
   return (
@@ -57,11 +57,9 @@ export default function FormTextarea<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className={cn(required && 'font-bold')}>
+          <FormLabel className={cn(required && "font-bold")}>
             {label}
-            {required && (
-              <span className="ml-1 text-red-500">*</span>
-            )}
+            {required && <span className="ml-1 text-red-500">*</span>}
           </FormLabel>
           <FormControl>
             <Textarea
@@ -71,9 +69,7 @@ export default function FormTextarea<T extends FieldValues>({
               {...field}
             />
           </FormControl>
-          {description && (
-            <FormDescription>{description}</FormDescription>
-          )}
+          {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
         </FormItem>
       )}
