@@ -36,7 +36,7 @@ export default antfu(
       }],
       'unicorn/filename-case': ['warn', {
         case: 'camelCase',
-        ignore: ['README.md', 'TODO.md', 'vite.config.ts', 'commitlint.config.js'],
+        ignore: ['README.md', 'TODO.md', 'vite.config.ts', 'commitlint.config.js', 'global-error.tsx'],
       }],
     },
   },
