@@ -27,7 +27,10 @@
     }
   ],
 
-  "lockFileMaintenance": { "enabled": true, "schedule": ["before 4am on monday"] },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 4am on monday"]
+  },
   "prHourlyLimit": 5,
   "prConcurrentLimit": 20,
   "semanticCommits": "enabled",

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * src/app/terms-conditions/page.tsx
@@ -7,9 +7,9 @@
  * Only accessible via direct link, not in navigation
  */
 
-import Image from 'next/image';
+import Image from "next/image";
 
-import McbcLogo from '@/assets/mcbc-logo/McbcTransparentLogoSymbol.png';
+import McbcLogo from "@/assets/mcbc-logo/McbcTransparentLogoSymbol.png";
 
 export function TermsConditions() {
   return (
@@ -17,20 +17,20 @@ export function TermsConditions() {
       {/* Print Styles */}
       <style jsx>
         {`
-                @media print {
-                    body {
-                        margin: 0;
-                    }
-                    .no-print {
-                        display: none;
-                    }
-                    .print-page {
-                        padding: 0.5in;
-                        font-size: 12pt;
-                        line-height: 1.4;
-                    }
-                }
-            `}
+          @media print {
+            body {
+              margin: 0;
+            }
+            .no-print {
+              display: none;
+            }
+            .print-page {
+              padding: 0.5in;
+              font-size: 12pt;
+              line-height: 1.4;
+            }
+          }
+        `}
       </style>
 
       {/* Print Button - Hidden when printing */}
@@ -84,10 +84,9 @@ export function TermsConditions() {
               1. PARTICIPATION AGREEMENT
             </h4>
             <p>
-              By registering your child for Vacation Bible School
-              (VBS) 2025 at Motlow Creek Baptist Church, you
-              acknowledge that participation is voluntary and at
-              your own risk.
+              By registering your child for Vacation Bible School (VBS) 2025 at
+              Motlow Creek Baptist Church, you acknowledge that participation is
+              voluntary and at your own risk.
             </p>
           </section>
 
@@ -96,13 +95,12 @@ export function TermsConditions() {
               2. LIABILITY WAIVER
             </h4>
             <p>
-              You acknowledge that VBS activities may involve
-              physical activities, crafts, games, and group
-              interactions. Motlow Creek Baptist Church, its
-              staff, volunteers, and leadership are not liable for
-              any injuries, accidents, or damages that may occur
-              during VBS activities. You assume all risks
-              associated with your child&apos;s participation.
+              You acknowledge that VBS activities may involve physical
+              activities, crafts, games, and group interactions. Motlow Creek
+              Baptist Church, its staff, volunteers, and leadership are not
+              liable for any injuries, accidents, or damages that may occur
+              during VBS activities. You assume all risks associated with your
+              child&apos;s participation.
             </p>
           </section>
 
@@ -111,11 +109,10 @@ export function TermsConditions() {
               3. INDEMNIFICATION
             </h4>
             <p>
-              You agree to indemnify and hold harmless Motlow
-              Creek Baptist Church, its staff, volunteers, and
-              leadership from any claims, damages, or expenses
-              arising from your child&apos;s participation in VBS
-              activities.
+              You agree to indemnify and hold harmless Motlow Creek Baptist
+              Church, its staff, volunteers, and leadership from any claims,
+              damages, or expenses arising from your child&apos;s participation
+              in VBS activities.
             </p>
           </section>
 
@@ -124,10 +121,10 @@ export function TermsConditions() {
               4. MEDICAL EMERGENCY AUTHORIZATION
             </h4>
             <p>
-              You authorize Motlow Creek Baptist Church staff to
-              seek emergency medical treatment for your child if
-              you cannot be reached immediately. You are
-              responsible for all medical expenses incurred.
+              You authorize Motlow Creek Baptist Church staff to seek emergency
+              medical treatment for your child if you cannot be reached
+              immediately. You are responsible for all medical expenses
+              incurred.
             </p>
           </section>
 
@@ -136,12 +133,11 @@ export function TermsConditions() {
               5. PHOTO & VIDEO RELEASE
             </h4>
             <p>
-              Unless you have opted out during registration, you
-              grant Motlow Creek Baptist Church permission to
-              photograph and video your child during VBS
-              activities. These images may be used for church
-              marketing, social media, websites, newsletters, and
-              promotional materials without compensation.
+              Unless you have opted out during registration, you grant Motlow
+              Creek Baptist Church permission to photograph and video your child
+              during VBS activities. These images may be used for church
+              marketing, social media, websites, newsletters, and promotional
+              materials without compensation.
             </p>
           </section>
 
@@ -150,11 +146,9 @@ export function TermsConditions() {
               6. CODE OF CONDUCT
             </h4>
             <p>
-              Children are expected to follow VBS rules and show
-              respect for staff, volunteers, and other
-              participants. Disruptive behavior may result in
-              removal from the program without refund or
-              compensation.
+              Children are expected to follow VBS rules and show respect for
+              staff, volunteers, and other participants. Disruptive behavior may
+              result in removal from the program without refund or compensation.
             </p>
           </section>
 
@@ -163,20 +157,18 @@ export function TermsConditions() {
               7. DROP-OFF & PICK-UP
             </h4>
             <p>
-              Children must be dropped off and picked up by
-              authorized individuals only. Photo ID may be
-              required for pick-up verification.
+              Children must be dropped off and picked up by authorized
+              individuals only. Photo ID may be required for pick-up
+              verification.
             </p>
           </section>
 
           <section>
-            <h4 className="text-marian-blue mb-2 font-bold">
-              8. DATA PRIVACY
-            </h4>
+            <h4 className="text-marian-blue mb-2 font-bold">8. DATA PRIVACY</h4>
             <p>
-              Registration information will be used solely for VBS
-              purposes and church communication. Information will
-              not be shared with third parties.
+              Registration information will be used solely for VBS purposes and
+              church communication. Information will not be shared with third
+              parties.
             </p>
           </section>
 
@@ -185,21 +177,18 @@ export function TermsConditions() {
               9. PROGRAM CHANGES
             </h4>
             <p>
-              Motlow Creek Baptist Church reserves the right to
-              modify VBS activities, dates, or cancel the program
-              if necessary. Participants will be notified of any
-              changes.
+              Motlow Creek Baptist Church reserves the right to modify VBS
+              activities, dates, or cancel the program if necessary.
+              Participants will be notified of any changes.
             </p>
           </section>
 
           <section>
-            <h4 className="text-marian-blue mb-2 font-bold">
-              10. AGREEMENT
-            </h4>
+            <h4 className="text-marian-blue mb-2 font-bold">10. AGREEMENT</h4>
             <p>
-              By completing registration and checking the consent
-              box, you acknowledge that you have read, understood,
-              and agree to these Terms & Conditions.
+              By completing registration and checking the consent box, you
+              acknowledge that you have read, understood, and agree to these
+              Terms & Conditions.
             </p>
           </section>
         </div>
