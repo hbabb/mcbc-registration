@@ -22,7 +22,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "shadcn": "pnpm dlx shadcn@latest add",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx ./src/db/migrate.ts",
+    "test": "vitest"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",

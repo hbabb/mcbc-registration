@@ -27,10 +27,10 @@ export default antfu(
     rules: {
       'ts/no-redeclare': 'off',
       'ts/consistent-type-definitions': ['error', 'type'],
-      'no-console': ['warn'],
+      'no-console': ['off'],
       'antfu/no-top-level-await': ['off'],
       'node/prefer-global/process': ['off'],
-      'node/no-process-env': ['error'],
+      'node/no-process-env': ['off'],
       'perfectionist/sort-imports': ['error', {
         tsconfigRootDir: '.',
       }],
@@ -41,7 +41,10 @@ export default antfu(
     },
   },
   {
-    files: ['src/components/ui/*'],
+    files: [
+      'src/components/ui/*',
+      './drizzle/meta/*',
+    ],
     rules: {
       'unicorn/filename-case': 'off',
     },

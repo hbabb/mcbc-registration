@@ -1,0 +1,1 @@
+ALTER TABLE "children" ALTER COLUMN "program" DROP DEFAULT;
