@@ -1,13 +1,19 @@
+import type { AdapterAccountType } from 'next-auth/adapters';
+
 import { relations } from 'drizzle-orm';
 import {
   boolean,
   date,
+  integer,
   pgEnum,
   pgTable,
+  primaryKey,
   timestamp,
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
+
+/* ─────────────────────────── VBS / SYO TABLES ─────────────────────────── */
 
 export const programEnum = pgEnum('program', ['VBS', 'SYO']);
 
@@ -142,5 +148,103 @@ export const consentRelations = relations(consent, ({ one }) => ({
   children: one(children, {
     fields: [consent.childId],
     references: [children.id],
+  }),
+}));
+
+/* ───────── AUTH.JS TABLES + RELATIONS — all fields varchar or uuid ───────── */
+
+/* users */
+export const users = pgTable('user', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name'),
+  email: varchar('email').unique(),
+  emailVerified: timestamp('emailVerified', { mode: 'date' }),
+  image: varchar('image'),
+});
+
+/* accounts */
+export const accounts = pgTable(
+  'account',
+  {
+    userId: uuid('userId')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    type: varchar('type').$type<AdapterAccountType>().notNull(),
+    provider: varchar('provider').notNull(),
+    providerAccountId: varchar('providerAccountId').notNull(),
+    refresh_token: varchar('refresh_token'),
+    access_token: varchar('access_token'),
+    expires_at: integer('expires_at'),
+    token_type: varchar('token_type'),
+    scope: varchar('scope'),
+    id_token: varchar('id_token'),
+    session_state: varchar('session_state'),
+  },
+  t => [primaryKey({ columns: [t.provider, t.providerAccountId] })],
+);
+
+/* sessions */
+export const sessions = pgTable('session', {
+  sessionToken: varchar('sessionToken').primaryKey(),
+  userId: uuid('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  expires: timestamp('expires', { mode: 'date' }).notNull(),
+});
+
+/* verificationTokens */
+export const verificationTokens = pgTable(
+  'verificationToken',
+  {
+    identifier: varchar('identifier').notNull(),
+    token: varchar('token').notNull(),
+    expires: timestamp('expires', { mode: 'date' }).notNull(),
+  },
+  t => [primaryKey({ columns: [t.identifier, t.token] })],
+);
+
+/* authenticators */
+export const authenticators = pgTable(
+  'authenticator',
+  {
+    credentialID: varchar('credentialID').notNull().unique(),
+    userId: uuid('userId')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    providerAccountId: varchar('providerAccountId').notNull(),
+    credentialPublicKey: varchar('credentialPublicKey').notNull(),
+    counter: integer('counter').notNull(),
+    credentialDeviceType: varchar('credentialDeviceType').notNull(),
+    credentialBackedUp: boolean('credentialBackedUp').notNull(),
+    transports: varchar('transports'),
+  },
+  t => [primaryKey({ columns: [t.userId, t.credentialID] })],
+);
+
+/* relations */
+export const usersRelations = relations(users, ({ many }) => ({
+  accounts: many(accounts),
+  sessions: many(sessions),
+  authenticators: many(authenticators),
+}));
+
+export const accountsRelations = relations(accounts, ({ one }) => ({
+  user: one(users, {
+    fields: [accounts.userId],
+    references: [users.id],
+  }),
+}));
+
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  user: one(users, {
+    fields: [sessions.userId],
+    references: [users.id],
+  }),
+}));
+
+export const authenticatorsRelations = relations(authenticators, ({ one }) => ({
+  user: one(users, {
+    fields: [authenticators.userId],
+    references: [users.id],
   }),
 }));
