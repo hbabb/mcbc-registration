@@ -160,6 +160,7 @@ export const users = pgTable("user", {
   email: varchar("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: varchar("image"),
+  role: varchar("role").notNull().default("user"),
 });
 
 /* accounts */

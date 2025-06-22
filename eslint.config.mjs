@@ -7,7 +7,7 @@ export default antfu(
     typescript: true,
     formatters: true,
     stylistic: {
-      indent: 2,
+      indent: 4,
       semi: true,
       quotes: "single",
       bracketSameLine: true,
@@ -45,13 +45,14 @@ export default antfu(
             "vite.config.ts",
             "commitlint.config.js",
             "global-error.tsx",
+            "instrumentation-client.ts",
           ],
         },
       ],
     },
   },
   {
-    files: ["src/components/ui/*", "./drizzle/meta/*"],
+    files: ["src/components/ui/*", "./drizzle/meta/*", "src/types/*"],
     rules: {
       "unicorn/filename-case": "off",
     },

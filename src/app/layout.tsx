@@ -7,7 +7,9 @@ import {
   Allura,
   Inter,
   Luckiest_Guy,
+  Mona_Sans,
   Montserrat,
+  Poppins,
   Roboto,
 } from "next/font/google";
 import Script from "next/script";
@@ -20,6 +22,19 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+});
+
+const monaSans = Mona_Sans({
+  subsets: ["latin"],
+  variable: "--font-monaSans",
+  display: "swap",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 const montserrat = Montserrat({
@@ -145,10 +160,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${montserrat.variable} ${luckiestGuy.variable} ${allura.variable} ${roboto.variable}`}
+      className={`${inter.variable} ${montserrat.variable} ${luckiestGuy.variable} ${allura.variable} ${roboto.variable} ${poppins.variable} ${monaSans.variable}`}
       suppressHydrationWarning
     >
-      <body className={cn("flex min-h-screen flex-col", inter.className)}>
+      <body className={cn("flex min-h-dvh flex-col", inter.className)}>
         <main>{children}</main>
         <Toaster richColors />
         {/* @ts-expect-error - GoogleAnalytics is a valid component */}

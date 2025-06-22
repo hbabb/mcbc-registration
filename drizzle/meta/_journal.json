@@ -1,34 +1,48 @@
 {
-  "version": "7",
-  "dialect": "postgresql",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "7",
-      "when": 1748122847712,
-      "tag": "0000_odd_meteorite",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1750465691935,
-      "tag": "0001_yellow_morg",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1750467369459,
-      "tag": "0002_sticky_cargill",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1750473119862,
-      "tag": "0003_tired_thundra",
-      "breakpoints": true
-    }
-  ]
+    "version": "7",
+    "dialect": "postgresql",
+    "entries": [
+        {
+            "idx": 0,
+            "version": "7",
+            "when": 1748122847712,
+            "tag": "0000_odd_meteorite",
+            "breakpoints": true
+        },
+        {
+            "idx": 1,
+            "version": "7",
+            "when": 1750465691935,
+            "tag": "0001_yellow_morg",
+            "breakpoints": true
+        },
+        {
+            "idx": 2,
+            "version": "7",
+            "when": 1750467369459,
+            "tag": "0002_sticky_cargill",
+            "breakpoints": true
+        },
+        {
+            "idx": 3,
+            "version": "7",
+            "when": 1750473119862,
+            "tag": "0003_tired_thundra",
+            "breakpoints": true
+        },
+        {
+            "idx": 4,
+            "version": "7",
+            "when": 1750532667955,
+            "tag": "0004_ancient_fat_cobra",
+            "breakpoints": true
+        },
+        {
+            "idx": 5,
+            "version": "7",
+            "when": 1750624052251,
+            "tag": "0005_sudden_christian_walker",
+            "breakpoints": true
+        }
+    ]
 }

@@ -1,9 +1,185 @@
 {
-    "id": "281f4282-6378-4c4b-a38a-dbed71630c39",
-    "prevId": "00000000-0000-0000-0000-000000000000",
+    "id": "0bc12f4d-b4de-4228-9ea8-2ce41fb9adf5",
+    "prevId": "e2cede34-0f8d-46f6-906b-6effd1d56620",
     "version": "7",
     "dialect": "postgresql",
     "tables": {
+        "public.account": {
+            "name": "account",
+            "schema": "",
+            "columns": {
+                "userId": {
+                    "name": "userId",
+                    "type": "uuid",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "type": {
+                    "name": "type",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "provider": {
+                    "name": "provider",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "providerAccountId": {
+                    "name": "providerAccountId",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "refresh_token": {
+                    "name": "refresh_token",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "access_token": {
+                    "name": "access_token",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "expires_at": {
+                    "name": "expires_at",
+                    "type": "integer",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "token_type": {
+                    "name": "token_type",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "scope": {
+                    "name": "scope",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "id_token": {
+                    "name": "id_token",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "session_state": {
+                    "name": "session_state",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": false
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {
+                "account_userId_user_id_fk": {
+                    "name": "account_userId_user_id_fk",
+                    "tableFrom": "account",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {
+                "account_provider_providerAccountId_pk": {
+                    "name": "account_provider_providerAccountId_pk",
+                    "columns": ["provider", "providerAccountId"]
+                }
+            },
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.authenticator": {
+            "name": "authenticator",
+            "schema": "",
+            "columns": {
+                "credentialID": {
+                    "name": "credentialID",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "uuid",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "providerAccountId": {
+                    "name": "providerAccountId",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "credentialPublicKey": {
+                    "name": "credentialPublicKey",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "counter": {
+                    "name": "counter",
+                    "type": "integer",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "credentialDeviceType": {
+                    "name": "credentialDeviceType",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "credentialBackedUp": {
+                    "name": "credentialBackedUp",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "transports": {
+                    "name": "transports",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": false
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {
+                "authenticator_userId_user_id_fk": {
+                    "name": "authenticator_userId_user_id_fk",
+                    "tableFrom": "authenticator",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {
+                "authenticator_userId_credentialID_pk": {
+                    "name": "authenticator_userId_credentialID_pk",
+                    "columns": ["userId", "credentialID"]
+                }
+            },
+            "uniqueConstraints": {
+                "authenticator_credentialID_unique": {
+                    "name": "authenticator_credentialID_unique",
+                    "nullsNotDistinct": false,
+                    "columns": ["credentialID"]
+                }
+            },
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
         "public.children": {
             "name": "children",
             "schema": "",
@@ -18,6 +194,13 @@
                 "guardian_id": {
                     "name": "guardian_id",
                     "type": "uuid",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "program": {
+                    "name": "program",
+                    "type": "program",
+                    "typeSchema": "public",
                     "primaryKey": false,
                     "notNull": true
                 },
@@ -399,9 +582,149 @@
             "policies": {},
             "checkConstraints": {},
             "isRLSEnabled": false
+        },
+        "public.session": {
+            "name": "session",
+            "schema": "",
+            "columns": {
+                "sessionToken": {
+                    "name": "sessionToken",
+                    "type": "varchar",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "uuid",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "expires": {
+                    "name": "expires",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {
+                "session_userId_user_id_fk": {
+                    "name": "session_userId_user_id_fk",
+                    "tableFrom": "session",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.user": {
+            "name": "user",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "uuid",
+                    "primaryKey": true,
+                    "notNull": true,
+                    "default": "gen_random_uuid()"
+                },
+                "name": {
+                    "name": "name",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "email": {
+                    "name": "email",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "emailVerified": {
+                    "name": "emailVerified",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "image": {
+                    "name": "image",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "role": {
+                    "name": "role",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "'admin'"
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {},
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {
+                "user_email_unique": {
+                    "name": "user_email_unique",
+                    "nullsNotDistinct": false,
+                    "columns": ["email"]
+                }
+            },
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.verificationToken": {
+            "name": "verificationToken",
+            "schema": "",
+            "columns": {
+                "identifier": {
+                    "name": "identifier",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "token": {
+                    "name": "token",
+                    "type": "varchar",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "expires": {
+                    "name": "expires",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {},
+            "compositePrimaryKeys": {
+                "verificationToken_identifier_token_pk": {
+                    "name": "verificationToken_identifier_token_pk",
+                    "columns": ["identifier", "token"]
+                }
+            },
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
         }
     },
-    "enums": {},
+    "enums": {
+        "public.program": {
+            "name": "program",
+            "schema": "public",
+            "values": ["VBS", "SYO"]
+        }
+    },
     "schemas": {},
     "sequences": {},
     "roles": {},
