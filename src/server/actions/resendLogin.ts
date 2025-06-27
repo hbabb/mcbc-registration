@@ -10,6 +10,9 @@ import { signIn } from "@/server/auth";
 export async function ResendLogin(formData: FormData) {
   const email = formData.get("email");
   if (typeof email === "string") {
-    await signIn("resend", { email });
+    await signIn("resend", {
+      email,
+      redirectTo: "/admin",
+    });
   }
 }

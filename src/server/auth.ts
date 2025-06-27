@@ -2,7 +2,6 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { config } from "dotenv";
 import { expand } from "dotenv-expand";
 import NextAuth from "next-auth";
-import Github from "next-auth/providers/github";
 import Resend from "next-auth/providers/resend";
 
 import { db } from "@/db/index";
@@ -21,7 +20,6 @@ export const NextAuthConfig = {
   }),
   secret: process.env.AUTH_SECRET,
   providers: [
-    Github,
     Resend({
       apiKey: process.env.AUTH_RESEND_KEY,
       from: "no-reply@motlowcreekministries.com",

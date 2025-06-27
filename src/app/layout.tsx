@@ -165,7 +165,12 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className={cn("flex min-h-dvh flex-col", inter.className)}>
-        <ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <main>{children}</main>
           <Toaster richColors />
           {/* @ts-expect-error - GoogleAnalytics is a valid component */}

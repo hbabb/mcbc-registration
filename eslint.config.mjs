@@ -46,6 +46,7 @@ export default antfu(
             "commitlint.config.js",
             "global-error.tsx",
             "instrumentation-client.ts",
+            "signout-button.tsx",
           ],
         },
       ],
