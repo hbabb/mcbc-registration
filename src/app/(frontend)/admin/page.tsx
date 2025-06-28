@@ -48,9 +48,9 @@ redirect("/unauthorized");
   return (
     <div
       className="flex min-h-dvh w-full flex-col items-center-safe pt-1"
-      style={{ backgroundImage: "url(/loginBackground.jpg)" }}
+      style={{ backgroundImage: "url(/adminBackground.jpg)" }}
     >
-      <header className="w-full max-w-4xl rounded-2xl border border-white/10 bg-white/50 shadow-2xl backdrop-blur-2xl dark:bg-white/60 dark:shadow-white">
+      <header className="w-full max-w-7xl rounded-2xl border border-white/80 bg-white/30 shadow-2xl backdrop-blur-2xl dark:bg-white/60 dark:shadow-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-2">
           <Link href="/" className="flex items-center space-x-4">
             <Image
@@ -71,13 +71,17 @@ redirect("/unauthorized");
           </div>
         </div>
       </header>
-      <div className="space-y-16 p-8">
-        <Card>
-          <h2 className="mb-4 text-2xl font-semibold">VBS Registrations</h2>
+      <div className="flex w-full max-w-7xl flex-col items-center-safe justify-center-safe space-y-16 p-8">
+        <Card className="m-4 w-full max-w-2/3 rounded-2xl border border-white/80 bg-white/30 p-4 shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-4 text-center text-2xl font-semibold">
+            VBS Registrations
+          </h2>
           <DataTable columns={columns} data={vbs} />
         </Card>
-        <Card>
-          <h2 className="mb-4 text-2xl font-semibold">SYO Registrations</h2>
+        <Card className="m-4 w-full max-w-2/3 rounded-2xl border border-white/80 bg-white/30 p-4 shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-4 text-center text-2xl font-semibold">
+            SYO Registrations
+          </h2>
           <DataTable columns={columns} data={syo} />
         </Card>
       </div>
