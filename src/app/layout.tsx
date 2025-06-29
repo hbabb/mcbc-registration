@@ -108,33 +108,33 @@ export const metadata: Metadata = {
     },
   },
 
-  // Facebook and social media sharing settings
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://vbs.motlowcreekministries.com",
-    siteName: "Motlow Creek Baptist Church VBS Registration",
-    title: "Motlow Creek Baptist Church | VBS 2025 Registration Form",
-    description:
-      "Register for the 2025 Vacation Bible School extravaganza! Motlow Creek Baptist Church is hosting Lifeway&apos;s 2025 VBS in Campobello, SC. This years theme is Magnified! All children ages 4-11 are welcome to come join us in a safe christian environment.",
-    images: [
-      {
-        url: "/vbs-logo-strd.jpg", // Image that shows when shared on Facebook
-        width: 1200,
-        height: 630,
-        alt: "Magnified! | VBS 2025 logo",
-      },
-    ],
-  },
+  // // Facebook and social media sharing settings
+  // openGraph: {
+  //   type: "website",
+  //   locale: "en_US",
+  //   url: "https://vbs.motlowcreekministries.com",
+  //   siteName: "Motlow Creek Baptist Church VBS Registration",
+  //   title: "Motlow Creek Baptist Church | VBS 2025 Registration Form",
+  //   description:
+  //     "Register for the 2025 Vacation Bible School extravaganza! Motlow Creek Baptist Church is hosting Lifeway&apos;s 2025 VBS in Campobello, SC. This years theme is Magnified! All children ages 4-11 are welcome to come join us in a safe christian environment.",
+  //   images: [
+  //     {
+  //       url: "/vbs-logo-strd.jpg", // Image that shows when shared on Facebook
+  //       width: 1200,
+  //       height: 630,
+  //       alt: "Magnified! | VBS 2025 logo",
+  //     },
+  //   ],
+  // },
 
-  // Twitter card settings
-  twitter: {
-    card: "summary_large_image", // Shows a big image when shared on Twitter
-    title: "Motlow Creek Baptist Church | VBS 2025 Registration Form",
-    description:
-      "Register for the 2025 Vacation Bible School extravaganza! Motlow Creek Baptist Church is hosting Lifeway&apos;s 2025 VBS in Campobello, SC. This years theme is Magnified! All children ages 4-11 are welcome to come join us in a safe christian environment.",
-    images: ["/vbs-logo-strd.jpg"],
-  },
+  // // Twitter card settings
+  // twitter: {
+  //   card: "summary_large_image", // Shows a big image when shared on Twitter
+  //   title: "Motlow Creek Baptist Church | VBS 2025 Registration Form",
+  //   description:
+  //     "Register for the 2025 Vacation Bible School extravaganza! Motlow Creek Baptist Church is hosting Lifeway&apos;s 2025 VBS in Campobello, SC. This years theme is Magnified! All children ages 4-11 are welcome to come join us in a safe christian environment.",
+  //   images: ["/vbs-logo-strd.jpg"],
+  // },
 
   // Verification codes for Google Search Console and Bing Webmaster Tools
   verification: {

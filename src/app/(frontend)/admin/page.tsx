@@ -17,7 +17,7 @@ import { children, guardians } from "@/db/schema";
 import { auth } from "@/server/auth";
 
 async function getRowsByProgram(program: "VBS" | "SYO"): Promise<ChildRow[]> {
-  const rows = await db
+  return await db
     .select({
       id: children.id,
       firstName: children.firstName,
@@ -26,13 +26,11 @@ async function getRowsByProgram(program: "VBS" | "SYO"): Promise<ChildRow[]> {
       dateOfBirth: children.dateOfBirth,
       classInFall: children.classInFall,
       school: children.school,
-      // createdAt: children.createdAt,
+      program: children.program,
     })
     .from(children)
     .leftJoin(guardians, eq(children.guardianId, guardians.id))
     .where(eq(children.program, program));
-
-  return rows;
 }
 
 export default async function AdminPage() {
@@ -71,18 +69,27 @@ redirect("/unauthorized");
           </div>
         </div>
       </header>
+
       <div className="flex w-full max-w-7xl flex-col items-center-safe justify-center-safe space-y-16 p-8">
         <Card className="m-4 w-full max-w-2/3 rounded-2xl border border-white/80 bg-white/30 p-4 shadow-2xl backdrop-blur-2xl">
           <h2 className="mb-4 text-center text-2xl font-semibold">
             VBS Registrations
           </h2>
-          <DataTable columns={columns} data={vbs} />
+          <DataTable<ChildRow, unknown>
+            columns={columns}
+            data={vbs}
+            printAllHref="/admin/print/VBS"
+          />
         </Card>
         <Card className="m-4 w-full max-w-2/3 rounded-2xl border border-white/80 bg-white/30 p-4 shadow-2xl backdrop-blur-2xl">
           <h2 className="mb-4 text-center text-2xl font-semibold">
             SYO Registrations
           </h2>
-          <DataTable columns={columns} data={syo} />
+          <DataTable<ChildRow, unknown>
+            columns={columns}
+            data={syo}
+            printAllHref="/admin/print/SYO"
+          />
         </Card>
       </div>
     </div>

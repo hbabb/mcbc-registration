@@ -9,7 +9,7 @@ import { accounts, sessions, users, verificationTokens } from "@/db/schema";
 
 expand(config({ path: ".env.local" }));
 
-console.log("AUTH_RESEND_KEY: ", process.env.AUTH_RESEND_KEY);
+// console.log("AUTH_RESEND_KEY: ", process.env.AUTH_RESEND_KEY);
 
 export const NextAuthConfig = {
   adapter: DrizzleAdapter(db, {

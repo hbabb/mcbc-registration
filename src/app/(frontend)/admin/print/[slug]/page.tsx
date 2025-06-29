@@ -1,7 +1,17 @@
+/* src/app/(frontend)/admin/print/[slug]/page.tsx
+ *
+ * ONE route – handles both:
+ *   /admin/print/VBS   → every VBS child (one form per page)
+ *   /admin/print/<id>  → one specific child
+ *
+ * Assumptions:
+ *   • Every child always has ≥1 emergency-contact row (required on submission).
+ *   • Only “VBS” or “SYO” will ever be used as program slugs.
+ */
+
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 
-// src/app/(frontend)/admin/print/[program]/page.tsx
 import { db } from "@/db/index";
 import {
   children,
@@ -11,42 +21,75 @@ import {
   medicalInformation,
 } from "@/db/schema";
 
-export default async function PrintProgramPage({
+export default async function PrintPage({
   params,
 }: {
-  params: { program: "VBS" | "SYO" };
+  params: { slug: string };
 }) {
-  const results = await db
+  const isProgram = params.slug === "VBS" || params.slug === "SYO";
+
+  /**
+   * -------------------------------------------------
+   *  Fetch children + guardian + consent + medical + EC
+   *  -------------------------------------------------
+   */
+  const rows = await db
     .select({
-      children,
-      guardians,
-      emergencyContacts,
-      medicalInformation,
+      child: children,
+      guardian: guardians,
+      medical: medicalInformation,
       consent,
+      ec: emergencyContacts,
     })
     .from(children)
     .innerJoin(guardians, eq(guardians.id, children.guardianId))
     .innerJoin(emergencyContacts, eq(emergencyContacts.childId, children.id))
     .leftJoin(medicalInformation, eq(medicalInformation.childId, children.id))
-    .leftJoin(consent, eq(consent.childId, children.id))
-    .where(eq(children.program, params.program));
+    .innerJoin(consent, eq(consent.childId, children.id))
+    .where(
+      isProgram
+        ? eq(children.program, params.slug as "VBS" | "SYO")
+        : eq(children.id, params.slug),
+    );
 
-  if (!results.length) 
+  if (!rows.length) 
 return notFound();
 
-  return (
-    <>
-      {results.map((record, _index) => {
-        const child = record.children;
-        const guardian = record.guardians;
-        const ecList = [record.emergencyContacts];
-        const medical = record.medicalInformation;
-        const consentData = record.consent;
+  /**
+   * -----------------------------
+   *  Group rows → one entry / child
+   *  -----------------------------
+   */
+  type ChildGroup = {
+    child: typeof children.$inferSelect;
+    guardian: typeof guardians.$inferSelect;
+    medical: typeof medicalInformation.$inferSelect | null;
+    consent: typeof consent.$inferSelect;
+    contacts: (typeof emergencyContacts.$inferSelect)[];
+  };
 
-        return (
+  const grouped: Record<string, ChildGroup> = {};
+  rows.forEach(({ child, guardian, medical, consent: c, ec }) => {
+    if (!grouped[child.id]) {
+      grouped[child.id] = {
+        child,
+        guardian,
+        medical,
+        consent: c,
+        contacts: [],
+      };
+    }
+    grouped[child.id].contacts.push(ec);
+  });
+
+  /** ------------- Render ------------- */
+  return (
+    <main className="space-y-12 bg-white p-12 text-black print:p-0">
+      {Object.values(grouped).map(
+        ({ child, guardian, medical, consent: c, contacts }) => (
           <div
             key={child.id}
-            className="mx-auto max-w-3xl space-y-6 bg-white p-8 text-black print:break-after-page"
+            className="page-break-after mx-auto max-w-3xl space-y-6 border-2 border-black p-8"
           >
             <h1 className="mb-6 text-center text-2xl font-bold underline">
               {child.program} Registration Form
@@ -74,7 +117,7 @@ return notFound();
               </dl>
             </section>
 
-            {/* MEDICAL INFO (optional) */}
+            {/* MEDICAL INFO */}
             <section className="rounded border p-4">
               <h2 className="mb-2 text-center text-xl font-semibold">
                 Medical Information
@@ -128,17 +171,15 @@ return notFound();
               <h2 className="mb-2 text-center text-xl font-semibold">
                 Emergency Contacts
               </h2>
-              {ecList.map((ec, i) => (
-                <div key={i} className={i !== 0 ? "mt-3 border-t pt-3" : ""}>
+              {contacts.map((ec, i) => (
+                <div key={ec.id} className={i ? "mt-3 border-t pt-3" : ""}>
                   <dl className="mb-3 grid grid-cols-[15rem_1fr] gap-y-1 last:mb-0">
                     <dt className="font-medium">Name:</dt>
                     <dd>
                       {ec.firstName} {ec.lastName}
                     </dd>
-
                     <dt className="font-medium">Phone:</dt>
                     <dd>{ec.phonePrimary}</dd>
-
                     <dt className="font-medium">Relationship:</dt>
                     <dd>{ec.relationship}</dd>
                   </dl>
@@ -155,16 +196,13 @@ return notFound();
                 <dt className="font-medium">Photo Release:</dt>
                 <dd
                   className={
-                    consentData?.photoRelease === true
-                      ? "font-bold text-red-700"
-                      : undefined
+                    c.photoRelease ? "font-bold text-red-700" : undefined
                   }
                 >
-                  {consentData?.photoRelease === false ? "Yes" : "No"}
+                  {c.photoRelease ? "No" : "Yes"}
                 </dd>
-
                 <dt className="font-medium">General Consent:</dt>
-                <dd>{consentData?.consentGiven ? "Yes" : "No"}</dd>
+                <dd>{c.consentGiven ? "Yes" : "No"}</dd>
               </dl>
             </section>
 
@@ -172,8 +210,7 @@ return notFound();
             <section className="mt-12 border-t border-gray-300 pt-6">
               <p className="mb-4">
                 I confirm that the above information is correct to the best of
-                my knowledge. I agree to update staff if any information
-                changes.
+                my knowledge.
               </p>
               <div className="mt-12 flex flex-col gap-12">
                 <div className="flex flex-col">
@@ -189,8 +226,16 @@ return notFound();
               </div>
             </section>
           </div>
-        );
-      })}
-    </>
+        ),
+      )}
+    </main>
   );
 }
+
+/* Add this in globals.css
+@media print {
+  .page-break-after {
+    page-break-after: always;
+  }
+}
+*/
