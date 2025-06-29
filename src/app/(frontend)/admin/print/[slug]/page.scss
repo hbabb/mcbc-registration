@@ -1,0 +1,44 @@
+@media print {
+    body {
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    .page-break-after {
+        page-break-after: always;
+        break-after: page;
+    }
+
+    main {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    section {
+        padding: 0.25rem !important;
+        margin: 0.25rem 0 !important;
+    }
+
+    h1,
+    h2 {
+        font-size: 0.875rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    dl {
+        gap: 0.25rem !important;
+    }
+
+    dt {
+        font-weight: 600;
+    }
+
+    dd {
+        margin-left: 0 !important;
+    }
+
+    .signature-line {
+        width: 60%;
+    }
+}

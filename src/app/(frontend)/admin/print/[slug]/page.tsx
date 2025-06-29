@@ -20,19 +20,15 @@ import {
   guardians,
   medicalInformation,
 } from "@/db/schema";
+import "@/app/(frontend)/admin/print/[slug]/page.scss";
+import { formatDate, formatPhoneNumber } from "@/lib/formatHelpers";
 
-export default async function PrintPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function PrintPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
-  const isProgram = params.slug === "VBS" || params.slug === "SYO";
+  const { slug } = await props.params;
+  const isProgram = slug === "VBS" || slug === "SYO";
 
-  /**
-   * -------------------------------------------------
-   *  Fetch children + guardian + consent + medical + EC
-   *  -------------------------------------------------
-   */
   const rows = await db
     .select({
       child: children,
@@ -48,8 +44,8 @@ export default async function PrintPage({
     .innerJoin(consent, eq(consent.childId, children.id))
     .where(
       isProgram
-        ? eq(children.program, params.slug as "VBS" | "SYO")
-        : eq(children.id, params.slug),
+        ? eq(children.program, slug as "VBS" | "SYO")
+        : eq(children.id, slug),
     );
 
   if (!rows.length) 
@@ -84,7 +80,7 @@ return notFound();
 
   /** ------------- Render ------------- */
   return (
-    <main className="space-y-12 bg-white p-12 text-black print:p-0">
+    <main className="space-y-12 bg-white p-12 text-black print:space-y-4 print:p-0">
       {Object.values(grouped).map(
         ({ child, guardian, medical, consent: c, contacts }) => (
           <div
@@ -107,7 +103,7 @@ return notFound();
                 </dd>
 
                 <dt className="font-medium">Date of Birth:</dt>
-                <dd>{child.dateOfBirth}</dd>
+                <dd>{formatDate(child.dateOfBirth)}</dd>
 
                 <dt className="font-medium">Class in Fall:</dt>
                 <dd>{child.classInFall}</dd>
@@ -149,10 +145,10 @@ return notFound();
                 <dd>{guardian.email}</dd>
 
                 <dt className="font-medium">Phone:</dt>
-                <dd>{guardian.phonePrimary}</dd>
+                <dd>{formatPhoneNumber(guardian.phonePrimary)}</dd>
 
                 <dt className="font-medium">Alt Phone:</dt>
-                <dd>{guardian.phoneAlternate || "—"}</dd>
+                <dd>{formatPhoneNumber(guardian.phoneAlternate) || "—"}</dd>
 
                 <dt className="font-medium">Address:</dt>
                 <dd>
@@ -179,7 +175,7 @@ return notFound();
                       {ec.firstName} {ec.lastName}
                     </dd>
                     <dt className="font-medium">Phone:</dt>
-                    <dd>{ec.phonePrimary}</dd>
+                    <dd>{formatPhoneNumber(ec.phonePrimary)}</dd>
                     <dt className="font-medium">Relationship:</dt>
                     <dd>{ec.relationship}</dd>
                   </dl>
