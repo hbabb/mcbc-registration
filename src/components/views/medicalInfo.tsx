@@ -10,6 +10,8 @@
 
 import type { FieldPath, UseFormReturn } from "react-hook-form";
 
+import { usePathname } from "next/navigation";
+
 import type { RegistrationFormData } from "@/schemas/formSchema";
 
 import FormTextarea from "@/components/form/formTextarea";
@@ -21,7 +23,25 @@ type MedicalInfoProps = {
   fieldPrefix: string;
 };
 
+function useProgram(): "VBS" | "SYO" {
+  const pathname = usePathname();
+  return pathname.startsWith("/vbs") ? "VBS" : "SYO";
+}
+
 export function MedicalInfo({ form, fieldPrefix }: MedicalInfoProps) {
+  const program = useProgram();
+
+  const director =
+    program === "VBS" ? (
+      <>
+        VBS Director at (<span>864</span>) <span>909</span>-<span>5377</span>
+      </>
+    ) : (
+      <>
+        SYO Director at (<span>864</span>) <span>978</span>-<span>3494</span>
+      </>
+    );
+
   return (
     <div className="space-y-6">
       {/* Medical Information Header */}
@@ -91,8 +111,8 @@ export function MedicalInfo({ form, fieldPrefix }: MedicalInfoProps) {
               <p>
                 <strong>Important:</strong> If your child has any
                 life-threatening allergies or medical conditions that require
-                immediate attention, please also contact the VBS director
-                directly at (555) 123-4567 before the first day.
+                immediate attention, please also contact the {director} before
+                the first day.
               </p>
             </div>
           </div>

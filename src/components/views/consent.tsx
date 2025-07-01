@@ -58,7 +58,7 @@ export function Consent({ form }: ConsentProps) {
                 <span className="font-semibold text-red-500">
                   Opt-Out of photos/video Release
                 </span>
-                (check if you don&apos;t want your child in photos)
+                (check if you do not want your child in photos)
               </FormLabel>
             </FormItem>
           )}

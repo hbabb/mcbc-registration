@@ -74,8 +74,10 @@ export const phoneValidation = z
 
 export const optionalPhoneValidation = z
   .string()
-  .optional()
-  .or(phoneValidation);
+  .refine((val) => val === "" || phoneValidation.safeParse(val).success, {
+    message: "Please enter a valid 10-digit phone number",
+  })
+  .optional();
 
 export const addressValidation = z
   .string()
@@ -84,8 +86,10 @@ export const addressValidation = z
 
 export const optionalAddressValidation = z
   .string()
-  .optional()
-  .or(addressValidation);
+  .refine((val) => val === "" || addressValidation.safeParse(val).success, {
+    message: "Invalid address",
+  })
+  .optional();
 
 export const cityValidation = z
   .string()

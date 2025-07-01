@@ -11,6 +11,7 @@
 import type { FieldPath, UseFormReturn } from "react-hook-form";
 
 import { Minus, Plus } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useFieldArray } from "react-hook-form";
 
 import type { RegistrationFormData } from "@/schemas/formSchema";
@@ -27,13 +28,20 @@ import {
 } from "@/components/ui/card";
 import { MedicalInfo } from "@/components/views/medicalInfo";
 import { GRADE_OPTIONS } from "@/constants/gradeOptions";
+import { YOUTH_OPTIONS } from "@/constants/youthGrades";
 
 type ChildInfoProps = {
   /** React Hook Form instance for the entire registration form */
   form: UseFormReturn<RegistrationFormData>;
 };
 
+function useProgram(): "VBS" | "SYO" {
+  const pathname = usePathname();
+  return pathname.startsWith("/vbs") ? "VBS" : "SYO";
+}
+
 export function ChildInfo({ form }: ChildInfoProps) {
+  const program = useProgram();
   // useFieldArray hook for dynamic child management
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -126,8 +134,8 @@ export function ChildInfo({ form }: ChildInfoProps) {
                 name={
                   `children.${index}.classInFall` as FieldPath<RegistrationFormData>
                 }
-                label="Grade in Fall 2025"
-                options={GRADE_OPTIONS}
+                label="Class in Fall 2025"
+                options={program === "VBS" ? GRADE_OPTIONS : YOUTH_OPTIONS}
                 placeholder="Select grade level in the Fall"
                 required
               />
