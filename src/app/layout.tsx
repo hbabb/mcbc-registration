@@ -17,6 +17,7 @@ import React from "react";
 
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/providers/themeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -107,33 +108,33 @@ export const metadata: Metadata = {
     },
   },
 
-  // Facebook and social media sharing settings
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://vbs.motlowcreekministries.com",
-    siteName: "Motlow Creek Baptist Church VBS Registration",
-    title: "Motlow Creek Baptist Church | VBS 2025 Registration Form",
-    description:
-      "Register for the 2025 Vacation Bible School extravaganza! Motlow Creek Baptist Church is hosting Lifeway&apos;s 2025 VBS in Campobello, SC. This years theme is Magnified! All children ages 4-11 are welcome to come join us in a safe christian environment.",
-    images: [
-      {
-        url: "/vbs-logo-strd.jpg", // Image that shows when shared on Facebook
-        width: 1200,
-        height: 630,
-        alt: "Magnified! | VBS 2025 logo",
-      },
-    ],
-  },
+  // // Facebook and social media sharing settings
+  // openGraph: {
+  //   type: "website",
+  //   locale: "en_US",
+  //   url: "https://vbs.motlowcreekministries.com",
+  //   siteName: "Motlow Creek Baptist Church VBS Registration",
+  //   title: "Motlow Creek Baptist Church | VBS 2025 Registration Form",
+  //   description:
+  //     "Register for the 2025 Vacation Bible School extravaganza! Motlow Creek Baptist Church is hosting Lifeway&apos;s 2025 VBS in Campobello, SC. This years theme is Magnified! All children ages 4-11 are welcome to come join us in a safe christian environment.",
+  //   images: [
+  //     {
+  //       url: "/vbs-logo-strd.jpg", // Image that shows when shared on Facebook
+  //       width: 1200,
+  //       height: 630,
+  //       alt: "Magnified! | VBS 2025 logo",
+  //     },
+  //   ],
+  // },
 
-  // Twitter card settings
-  twitter: {
-    card: "summary_large_image", // Shows a big image when shared on Twitter
-    title: "Motlow Creek Baptist Church | VBS 2025 Registration Form",
-    description:
-      "Register for the 2025 Vacation Bible School extravaganza! Motlow Creek Baptist Church is hosting Lifeway&apos;s 2025 VBS in Campobello, SC. This years theme is Magnified! All children ages 4-11 are welcome to come join us in a safe christian environment.",
-    images: ["/vbs-logo-strd.jpg"],
-  },
+  // // Twitter card settings
+  // twitter: {
+  //   card: "summary_large_image", // Shows a big image when shared on Twitter
+  //   title: "Motlow Creek Baptist Church | VBS 2025 Registration Form",
+  //   description:
+  //     "Register for the 2025 Vacation Bible School extravaganza! Motlow Creek Baptist Church is hosting Lifeway&apos;s 2025 VBS in Campobello, SC. This years theme is Magnified! All children ages 4-11 are welcome to come join us in a safe christian environment.",
+  //   images: ["/vbs-logo-strd.jpg"],
+  // },
 
   // Verification codes for Google Search Console and Bing Webmaster Tools
   verification: {
@@ -164,22 +165,29 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className={cn("flex min-h-dvh flex-col", inter.className)}>
-        <main>{children}</main>
-        <Toaster richColors />
-        {/* @ts-expect-error - GoogleAnalytics is a valid component */}
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-        <Script
-          id="clarity-script"
-          strategy="afterInteractive"
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `(function(c,l,a,r,i,t,y){
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main>{children}</main>
+          <Toaster richColors />
+          {/* @ts-expect-error - GoogleAnalytics is a valid component */}
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+          <Script
+            id="clarity-script"
+            strategy="afterInteractive"
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: `(function(c,l,a,r,i,t,y){
                   c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                   t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                   y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
                 })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_ID}");`,
-          }}
-        />
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );
