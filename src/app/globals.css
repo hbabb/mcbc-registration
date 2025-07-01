@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Roboto:ital@0;1&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -41,75 +42,72 @@
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
+
+    /*Custom fonts*/
+    --font-allura: 'Allura', cursive;
+    --font-roboto: 'Roboto', sans-serif;
+    --font-inter: var(--font-inter);
+    --font-montserrat: var(--font-montserrat);
+    --font-luckiest: var(--font-luckiest);
+
+    /* Custom VBS Color Palette */
+    --bone: hsl(55, 21%, 78%); /* #C7BF9F - warm cream */
+    --vista-blue: hsl(221, 43%, 59%); /* #6B84C7 - medium blue */
+    --marian-blue: hsl(225, 64%, 37%); /* #344080 - dark blue */
+    --dartmouth-green: hsl(120, 45%, 26%); /* #2D5A2D - forest green */
+    --liver: hsl(16, 29%, 30%); /* #5C4238 - warm brown */
+    --church-navy: #262262; /* #262262 - church brand */
+    --black: #242526;
 }
 
 :root {
-    --radius: 0.625rem;
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.147 0.004 49.25);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.147 0.004 49.25);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.147 0.004 49.25);
-    --primary: oklch(0.216 0.006 56.043);
-    --primary-foreground: oklch(0.985 0.001 106.423);
-    --secondary: oklch(0.97 0.001 106.424);
-    --secondary-foreground: oklch(0.216 0.006 56.043);
-    --muted: oklch(0.97 0.001 106.424);
-    --muted-foreground: oklch(0.553 0.013 58.071);
-    --accent: oklch(0.97 0.001 106.424);
-    --accent-foreground: oklch(0.216 0.006 56.043);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.923 0.003 48.717);
-    --input: oklch(0.923 0.003 48.717);
-    --ring: oklch(0.709 0.01 56.259);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: oklch(0.985 0.001 106.423);
-    --sidebar-foreground: oklch(0.147 0.004 49.25);
-    --sidebar-primary: oklch(0.216 0.006 56.043);
-    --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
-    --sidebar-accent: oklch(0.97 0.001 106.424);
-    --sidebar-accent-foreground: oklch(0.216 0.006 56.043);
-    --sidebar-border: oklch(0.923 0.003 48.717);
-    --sidebar-ring: oklch(0.709 0.01 56.259);
-}
+    --radius: 0.5rem;
 
-.dark {
-    --background: oklch(0.147 0.004 49.25);
-    --foreground: oklch(0.985 0.001 106.423);
-    --card: oklch(0.216 0.006 56.043);
-    --card-foreground: oklch(0.985 0.001 106.423);
-    --popover: oklch(0.216 0.006 56.043);
-    --popover-foreground: oklch(0.985 0.001 106.423);
-    --primary: oklch(0.923 0.003 48.717);
-    --primary-foreground: oklch(0.216 0.006 56.043);
-    --secondary: oklch(0.268 0.007 34.298);
-    --secondary-foreground: oklch(0.985 0.001 106.423);
-    --muted: oklch(0.268 0.007 34.298);
-    --muted-foreground: oklch(0.709 0.01 56.259);
-    --accent: oklch(0.268 0.007 34.298);
-    --accent-foreground: oklch(0.985 0.001 106.423);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.553 0.013 58.071);
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: oklch(0.216 0.006 56.043);
-    --sidebar-foreground: oklch(0.985 0.001 106.423);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
-    --sidebar-accent: oklch(0.268 0.007 34.298);
-    --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.553 0.013 58.071);
+    /* VBS color mapping */
+    --background: white; /* Bone cream backgrounds */
+    --foreground: var(--liver); /* Liver brown for body text */
+    --card: oklch(1 0 0); /* Bone cream for cards */
+    --card-foreground: var(--liver); /* Liver brown for card text */
+    --popover: var(--bone); /* Bone cream for popovers */
+    --popover-foreground: var(--liver); /* Liver brown for popover text */
+    --primary: var(--marian-blue); /* Vista Blue for primary buttons */
+    --primary-foreground: white; /* White text on Vista Blue */
+    --secondary: var(--dartmouth-green); /* Dartmouth Green for secondary */
+    --secondary-foreground: white; /* White text on Dartmouth Green */
+    --muted: hsl(55, 21%, 85%); /* Lighter bone for muted areas */
+    --muted-foreground: var(--liver); /* Liver brown for muted text */
+    --accent: var(--dartmouth-green); /* Dartmouth Green for accents */
+    --accent-foreground: white; /* White text on Dartmouth Green */
+    --destructive: hsl(0, 84%, 60%); /* Keep red for destructive actions */
+    --border: hsl(55, 21%, 70%); /* Darker bone for borders */
+    --input: hsl(55, 21%, 85%); /* Light bone for input backgrounds */
+    --ring: var(--vista-blue); /* Vista Blue for focus rings */
+
+    /* Chart colors using VBS palette */
+    --chart-1: var(--vista-blue);
+    --chart-2: var(--dartmouth-green);
+    --chart-3: var(--marian-blue);
+    --chart-4: var(--liver);
+    --chart-5: var(--bone);
+
+    /* No change from ShadCN setup */
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.141 0.005 285.823);
+    --sidebar-primary: oklch(0.623 0.214 259.815);
+    --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
+    --sidebar-accent: oklch(0.967 0.001 286.375);
+    --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+    --sidebar-border: oklch(0.92 0.004 286.32);
+    --sidebar-ring: oklch(0.623 0.214 259.815);
+
+    /* Custom VBS Color Palette */
+    --bone: hsl(55, 21%, 78%); /* #C7BF9F - warm cream */
+    --vista-blue: hsl(221, 43%, 59%); /* #6B84C7 - medium blue */
+    --marian-blue: hsl(225, 64%, 37%); /* #344080 - dark blue */
+    --dartmouth-green: hsl(120, 45%, 26%); /* #2D5A2D - forest green */
+    --liver: hsl(16, 29%, 30%); /* #5C4238 - warm brown */
+    --church-navy: #262262; /* #262262 - church brand */
+    --black: #242526;
 }
 
 @layer base {
@@ -118,5 +116,27 @@
     }
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+@layer utilities {
+    .mcbc-logo {
+        letter-spacing: 0.3rem;
+    }
+
+    .text-church-navy {
+        color: var(--church-navy);
+    }
+
+    .bg-church-navy {
+        background-color: var(--church-navy);
+    }
+
+    .text-dartmouth-green {
+        color: var(--dartmouth-green);
+    }
+
+    .text-marian-blue {
+        color: var(--marian-blue);
     }
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import McbcLogo from "@/assets/mcbc-logo/McbcTransparentLogo.svg";
 import { SignOut } from "@/components/auth/signout-button";
-import { ModeToggle } from "@/components/modeToggle";
+// import { ModeToggle } from "@/components/modeToggle";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/server/auth";
 
@@ -36,7 +36,7 @@ export async function Header() {
               <Button variant="outline">Login</Button>
             </Link>
           )}
-          <ModeToggle />
+          {/* <ModeToggle /> */}
         </div>
       </div>
     </header>
