@@ -30,31 +30,37 @@ export const createRegistration = actionClient
     }: {
       parsedInput: RegistrationFormData;
     }) => {
+      // console.log("children length: ", formData.children.length)
       // Security checks
       if (formData.honeypot || formData.honeypot2) {
         throw new Error("Invalid submission detected");
       }
       // Guardian data
-      const existingGuardian = await db
-        .select()
+      const [existingGuardian] = await db
+        .select({ id: guardians.id })
         .from(guardians)
         .where(eq(guardians.email, formData.guardians.email))
         .limit(1);
 
-      if (existingGuardian.length > 0) {
-        throw new Error(
-          "A registration already exists for this email address. Please contact us if you believe this is an error.",
-        );
-      }
-      // Insert guardian and get the ID
-      // We can spread all guardian fields because form structure matches DB schema exactly
-      const [guardian] = await db
-        .insert(guardians)
-        .values({ ...formData.guardians })
-        .returning({ id: guardians.id });
+      let guardianId: string;
 
-      if (!guardian) {
-        throw new Error("Failed to create guardian record");
+      if (existingGuardian) {
+        guardianId = existingGuardian.id;
+
+        await db
+          .update(guardians)
+          .set({ ...formData.guardians, updatedAt: new Date() })
+          .where(eq(guardians.id, guardianId));
+      } else {
+        const [newGuardian] = await db
+          .insert(guardians)
+          .values({ ...formData.guardians })
+          .returning({ id: guardians.id });
+
+        if (!newGuardian) {
+          throw new Error("Failed to create guardian record");
+        }
+        guardianId = newGuardian.id;
       }
 
       const childIds: string[] = [];
@@ -70,7 +76,7 @@ export const createRegistration = actionClient
           .insert(children)
           .values({
             ...childFields, // firstName, lastName, dateOfBirth, classInFall, school
-            guardianId: guardian.id, // Foreign key - not in form data
+            guardianId, // Foreign key - not in form data
             program: formData.program,
           })
           .returning({ id: children.id });
@@ -137,7 +143,7 @@ export const createRegistration = actionClient
         success: true,
         message: "Registration completed successfully!",
         data: {
-          guardianId: guardian.id,
+          guardianId,
           childIds,
           childrenCount: childIds.length,
         },
